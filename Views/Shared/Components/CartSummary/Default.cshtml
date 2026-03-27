@@ -1,0 +1,14 @@
+@model Cart
+
+<div class="">
+    @if (Model.Lines.Count > 0)
+    {
+        <small class="navbar-text me-3">
+            <b>@Model.Lines.Sum(x => x.Quantity)</b> item(s)
+            @Model.CalculateTotal().ToString("c")
+        </small>
+    }
+    <a class="btn btn-sm btn-secondary" asp-page="/Cart">
+        <i class="bi bi-cart4"></i> View Cart
+    </a>
+</div>

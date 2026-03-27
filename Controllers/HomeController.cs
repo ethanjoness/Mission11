@@ -9,13 +9,13 @@ public class HomeController : Controller
     private IBookstoreRepository _repo;
     public HomeController(IBookstoreRepository temp) => _repo = temp;
 
-    public IActionResult Index(int pageNum = 1, int pageSize = 5, string sortOrder = "title_asc")
+    public IActionResult Index(string? category, int pageNum = 1, int pageSize = 5, string sortOrder = "title_asc")
     {
         ViewBag.CurrentSort = sortOrder;
 
-        var bookQuery = _repo.Books;
+        var bookQuery = _repo.Books
+            .Where(x => category == null || x.Category == category);
 
-        // Sorting Logic
         bookQuery = sortOrder == "title_desc" 
             ? bookQuery.OrderByDescending(b => b.Title) 
             : bookQuery.OrderBy(b => b.Title);
@@ -30,8 +30,9 @@ public class HomeController : Controller
             {
                 CurrentPage = pageNum,
                 ItemsPerPage = pageSize,
-                TotalItems = _repo.Books.Count()
+                TotalItems = category == null ? _repo.Books.Count() : _repo.Books.Where(x => x.Category == category).Count()
             },
+            CurrentCategory = category,
             CurrentSort = sortOrder
         };
 
