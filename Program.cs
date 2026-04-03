@@ -18,11 +18,21 @@ builder.Services.AddSession();
 builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReact",
+        builder => builder.WithOrigins("http://localhost:3000") // Default React port
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 app.UseStaticFiles();
 app.UseSession(); 
 app.UseRouting();
+
+app.UseCors("AllowReact");
 
 // Clean Routing Pattern
 app.MapControllerRoute("catpage", "{category}/Page{pageNum:int}", new { Controller = "Home", Action = "Index" });
