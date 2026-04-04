@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const API_URL = "http://localhost:5055/api/books"; // Ensure this matches your backend port
+const API_URL = "https://ethanjones-bookstore-api.azurewebsites.net/api/books";
 
 export default function AdminBooks() {
     const [books, setBooks] = useState<any[]>([]);

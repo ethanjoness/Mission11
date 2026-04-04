@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/1a40da5e-c236-4b5c-ab78-bd6ac2e6c7c5/resourceGroups/ethans-bookstore-api-123/providers/Microsoft.Web/sites/ethanjones-bookstore-api",
+    "appService.deploySubpath": "publish"
+}
